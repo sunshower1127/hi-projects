@@ -9,7 +9,7 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh", "tanstack/query" /* 이것도 추가 */],
+  plugins: ["react-refresh" /*"tanstack/query"*/ /* 이것도 추가 */],
   rules: {
     "react-refresh/only-export-components": [
       "warn",
