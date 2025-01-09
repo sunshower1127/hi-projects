@@ -1,5 +1,6 @@
 import { HomeIcon } from "@heroicons/react/24/outline";
-import MyListbox from "./MyListbox";
+import MyListbox from "./components/MyListbox";
+import FlexButtonIssue from "./components/flexButtonIssue";
 
 export default function App() {
   return (
@@ -7,6 +8,8 @@ export default function App() {
       <HomeIcon className="w-12" />
       <h1 className="text-4xl font-bold text-center">Hi, Tailwind!</h1>
       <MyListbox />
+      <hr />
+      <FlexButtonIssue />
     </div>
   );
 }

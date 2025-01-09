@@ -10,6 +10,7 @@ import {
   useLoaderData,
   useNavigate,
   useNavigation,
+  useRevalidator,
 } from "react-router";
 import PostLink from "../components/postLink";
 import { create, getLength, readAll } from "../services/db";
@@ -64,8 +65,15 @@ export default function Posts() {
   // const asyncValue = useAsyncValue();
   // const asyncError = useAsyncError(); 얘네는 <Await>의 children 컴포넌트에서 사용하는 훅임. 함수로 값을 받는게 아니라 use로 받는거.
 
+  const revalidator = useRevalidator(); // 새로고침임. loader만 따로 호출해줌. navigation에 영향을 주지않음 -> blocker 안통함
+  // 자기만의 로딩 상태가 있음 -> revalidator.state
+
   return (
     <main>
+      <button className="border" onClick={revalidator.revalidate}>
+        새로고침(revalidate)
+      </button>
+      <p>{`Revalidator.State: ${revalidator.state}`}</p>
       <p>{`State: ${navigation.state}`}</p>
       <p>{`Data: ${data?.message}`}</p>
       <p>{`useBlocker: ${blocker.state}`}</p>
@@ -97,7 +105,7 @@ export default function Posts() {
         </button>
       </Form>
       <br />
-      <section className="grid gap-5">
+      <section className="flex flex-col gap-5">
         <Suspense
           fallback={Array.from({ length }).map((_, i) => (
             <PostLink to="스켈레톤임" key={i}></PostLink> // 개수만 알아내서 스켈레톤 넣기
