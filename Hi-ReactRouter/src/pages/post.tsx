@@ -13,6 +13,7 @@ export async function loader({ params, request, context }: LoaderFunctionArgs) {
 
 export default function Post() {
   const { title, content } = useLoaderData<typeof loader>();
+  // const data = useRouteLoaderData("root"); // 여기서 Home 컴포넌트에 id: root 달고 이렇게 가져올 수도 있음.
   const [queries, setQuries] = useSearchParams();
   const queryData = Object.fromEntries(queries.entries()) as { query1: string }; // object로 쓰기
   const { id } = useParams(); // 여기서 타입 체크로 안정성 챙기려면 tanstack-router가 맞음.

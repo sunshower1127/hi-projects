@@ -1,16 +1,20 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import ErrorPage from "../pages/_errorPage";
 import NavBar from "../pages/_navBar";
 import NotFound from "../pages/_notFound";
-import Home from "../pages/home";
-import Post, { loader as postLoader } from "../pages/post";
+import Home, { loader as homeLoader } from "../pages/home";
 import Posts, { action as postsAction, loader as postsLoader } from "../pages/posts";
+
+const Post = lazy(() => import("../pages/post")); // lazy하게 페이지를 가져올 수 있음. -> 이러면 실제로 네트워크 다운로드가 늦게됨.
 
 const router = createBrowserRouter(
   [
     {
       path: "/", // root는 index 사용 불가
       element: <NavBar />,
+      loader: homeLoader,
+      // shouldRevalidate: ()=> {}, // 기본값에선 최대한 캐싱하는쪽으로 되고, revalidate 맞으면 모든 경로의 loader들이 다시 호출됨.
       children: [
         { index: true, element: <Home /> },
         {
@@ -24,7 +28,16 @@ const router = createBrowserRouter(
               errorElement: <ErrorPage />,
               // lazy: () => import("../pages/posts"), // lazy loading인데 레퍼런스가 많이 없음. react.lazy는 알겠는데 흠..
             },
-            { path: ":id", element: <Post />, loader: postLoader },
+            {
+              path: ":id",
+              // lazy는 Suspense로 감싸줘야됨.
+              element: (
+                <Suspense>
+                  <Post />
+                </Suspense>
+              ),
+              loader: (meta) => import("../pages/post").then((mod) => mod.loader(meta)), // lazy loading은 이렇게
+            },
           ],
         },
       ],
@@ -32,7 +45,7 @@ const router = createBrowserRouter(
     { path: "*", element: <NotFound /> }, // *은 뒤에 경로 싹다 캡쳐해서 params["*"]로 넘김.
   ],
   {
-    basename: "", // 루트 경로를 설정할 수 있음. /app 같은거. 보통 production할때 basename={process.env.PUBLIC_URL} 하기도 함.
+    // basename: , // 루트 경로를 설정할 수 있음. github에다가 배포할때는 "/repo이름" 넣어줘야함.
   }
 );
 

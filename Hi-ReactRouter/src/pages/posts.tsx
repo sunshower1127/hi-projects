@@ -70,8 +70,11 @@ export default function Posts() {
 
   return (
     <main>
-      <button className="border" onClick={revalidator.revalidate}>
+      <button className="border m-3" onClick={revalidator.revalidate}>
         새로고침(revalidate)
+      </button>
+      <button className="border" onClick={() => navigate(".", { replace: true })}>
+        새로고침(nativigate('.'))
       </button>
       <p>{`Revalidator.State: ${revalidator.state}`}</p>
       <p>{`State: ${navigation.state}`}</p>
