@@ -24,3 +24,9 @@
    1. [vitest](https://vitest.dev/guide/) → `yarn add -D vitest`
    2. [storybook](https://storybook.js.org/docs/get-started/frameworks/react-vite?renderer=react) → `yarn dlx storybook@latest init` , 예시코드 하나정도?
    3. [playwright](https://playwright.dev/docs/intro) → `yarn create playwright`
+
+---
+
+그때 그때 필요한걸 설치해서 바로 쓸 수 있게 하는게 목표기 때문에
+
+설치법 + 세팅을 자세히 적는걸로 하자.

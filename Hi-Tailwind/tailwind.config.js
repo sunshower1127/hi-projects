@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export const content = ["./src/**/*.{html,js,jsx}", "./index.html"];
+export const content = ["./src/**/*.{html,js,jsx,ts,tsx}", "./index.html"];
 export const theme = {
   extend: {
     fontFamily: {
@@ -20,7 +20,7 @@ export const theme = {
         '"Segoe UI Symbol"',
         "sans-serif",
       ],
-      testserif: ['"Noto Serif KR"'],
+      serif: ["Hahmlet", "Georgia", '"Times New Roman"', "Times", "serif"],
     },
   },
 };
